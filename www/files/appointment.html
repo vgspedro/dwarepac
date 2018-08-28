@@ -1,0 +1,214 @@
+<style>
+tr{text-align:center}
+tbody tr td{padding:0px!important}
+.list-inline>li {display: inline-block}
+</style>
+
+<div class="w3-center">
+	<div class="w3-large w3-padding-16">
+ 		<div class="w3-container" id="calendar"></div>
+	</div>
+</div>
+
+<div class="w3-col s12 w3-light-grey">
+    <ul class="list-inline w3-center list_status" style="padding:4px 8px 128px 8px"></ul>
+</div>
+
+<!-- APPONTEMNMTS MENU -->
+
+    <button class="w3-btn w3-large w3-circle w3-xlarge w3-ripple w3-blue btn-52-52 show-all-btn" onclick="menuAppointments(1)" style="bottom:76px;z-index:2">
+        <i class="fa fa-plus"></i>
+    </button>
+    
+    <button class="w3-btn w3-large w3-circle w3-xlarge w3-ripple w3-blue btn-52-52 w3-hide hide-all-btn" onclick="menuAppointments(4)" style="bottom:76px">
+        <i class="fa fa-calendar" style="margin-left: -1px"></i>
+    </button>
+    <div class="w3-white w3-card btn-tag w3-hide hide-all-btn" style="bottom:86px">Criar marcação</div>
+    <button class="w3-btn w3-large w3-circle w3-xlarge w3-ripple w3-blue btn-52-52 w3-hide hide-all-btn" onclick="menuAppointments(0)" style="bottom:16px">
+        <i class="fa fa-minus"></i>
+    </button>
+
+<script>
+
+/*
+@param int s get values of actions in buttons
+0
+1
+2
+3
+*/
+
+function menuAppointments(s){
+    switch (s){
+        case 0:
+            $('.menu-overlay').hide()
+            $('.hide-all-btn').addClass('w3-hide')
+            $('.show-all-btn').removeClass('w3-hide')
+        break
+        case 1:
+            $('.menu-overlay').show()
+            $('.hide-all-btn').removeClass('w3-hide')
+            $('.show-all-btn').addClass('w3-hide')
+        break
+        case 2:
+            $('.menu-overlay').hide()
+            templateLoader('addclient')
+        break
+        case 3:
+            $('.menu-overlay').hide()
+            templateLoader('waitinglist')
+        break
+        case 4:
+            $('.menu-overlay').hide()
+            templateLoader('newappointment')
+        break
+    }
+}
+
+
+
+function initializeAppoiment(){
+/*
+we put all status of treatments in a json array see file in js/status.json
+A legend to the user, list of status to user to see colors and name
+*/
+    list = ""
+    for (g=0; g< statuses.length; g++)
+        list += '<li class="w3-padding-small"><i class="fa fa-circle" style="color:'+statuses[g].color+'"></i> '+statuses[g].name+'</li>'
+        /*add to object all trhe statuses*/
+    $('.list_status').html(list)
+}
+
+$(function() {
+
+    initializeAppoiment()
+
+    count = 0
+
+	$('.set-clinic-name').text(localStorage.getItem('clinic_name'))
+
+	array_dias_aberto = [1,2,3,4,5]
+    
+    path = url+'?clinic_id='+localStorage.getItem('clinic_id')+'&user_id='+localStorage.getItem('user_id')+'&action=get_appointments'
+    
+	option = {
+        //slotMinutes: 30,
+        slotDuration: '00:30:00',
+        slotLabelInterval: 30,    
+        allDaySlot: true,
+        slotLabelFormat:"HH:mm",
+ 		titleFormat: 'DD/MM/YYYY',
+        locale: 'pt',
+        defaultView: 'month',
+        //groupByResource: true,
+        displayEventTime:true,
+        timezone: 'Europe/Lisbon',
+        header: {
+             left: 'prev,next',
+            center: 'title',
+            right: 'agendaDay,month'
+        	},
+
+        events: 'js/appointments.json', // check the file, the server response must be that way
+        
+        eventClick: function(calEvent, jsEvent, view) {
+
+            obj = '<option selected value="'+calEvent.status+'">'+calEvent.status+'</option>'
+            $('.set_date').html(moment(calEvent.start).format('DD/MM/YYYY')).val(moment(calEvent.start).format('DD/MM/YYYY'))
+            $('.patient_name').html(calEvent.name)
+            $('.set_room_info').val(calEvent.room)
+            $('.set_treatment').html('<option selected disabled>'+calEvent.title+'</option>')
+            $('.ends_at').val(moment(calEvent.end).format('HH:mm'))
+            $('.starts_at').val(moment(calEvent.start).format('HH:mm'))
+            $('.show_client_data').attr('onclick', 'templateShowClient('+calEvent.user_id+')')
+            $('#modal-client-appointment').show()
+            $('.set_border_status').css('border', '4px solid '+calEvent.color)
+            $('.appointment_id').val(calEvent.id)
+
+            for (g=0; g< statuses.length; g++)
+                obj += '<option value="'+statuses[g].name+'">'+statuses[g].name+'</option>'
+                /*add to object all the statuses*/
+            $('.status_info').html(obj)
+        },
+
+        eventRender: function(event, element, view) {
+        
+            switch (view.name){
+
+                case 'agendaDay':
+                    count = 0
+                    element.html('<div class="w3-topbar w3-left-align w3-padding-small w3-pale-blue" style="border-color:'+event.color+'!important"><span class="w3-small">'+moment(event.start).format('HH:mm')+' ~ '+moment(event.end).format('HH:mm')+'</span><div>'+event.name+'</div><div class="w3-right-align">'+event.title+'</div></div>')
+                break
+
+                case 'month':
+                    element.html('<span class="w3-badge" style="background:'+event.color+'"></span>')
+                setTimeout(function(){ $('.fc-event-container').addClass('month-container') }, 500)
+                break
+            }
+        },
+    },
+
+    $('#calendar').fullCalendar(option)
+
+    /*update the appointment data*/
+    $('#update-client-appointment').on('submit', function(e){
+        
+        hours = false
+        minAllowed = parseInt(localStorage.getItem('user_schedule'))
+        e.preventDefault()
+        err=[]
+        $('.w3-overlay').show()
+        $('.required').addClass('w3-hide')
+
+        setTimeout(function(){
+
+            $('#update-client-appointment input.needed').each(function() {
+                if(!$('input[name='+$( this ).attr( "name" )+']').val()){
+                    $('.'+$( this ).attr( "name" )).removeClass('w3-hide')
+                    err.push($( this ).attr( "name" ))
+                }
+            })
+    
+            /*required fields*/
+            
+            if (err.length > 0)
+                $('.w3-overlay').hide()
+            /* dont allow start date smaller than end with the minAllowed (depends from each user) */
+            else {
+    
+                if(hoursMinutesToSeconds($('#update-client-appointment .starts_at').val()) + minAllowed > parseInt(hoursMinutesToSeconds($('#update-client-appointment .ends_at').val()))){
+                    $('.w3-overlay').hide()
+                    $('#modal-text-info').html('A hora inserida não é válida.<br>Os intervalos, entre Inicio e Fim, são de '+secondsToHoursMinutes(minAllowed))
+                    $('#modal-info').show()
+                
+                }
+
+                else
+                    hours = true
+            }
+
+            if (hours == true){
+                console.log('data to server on update appointment -->' + $('#update-client-appointment').serialize())
+                $.ajax({  
+                    url: url,      
+                    type: "GET",
+                    data:'action=add_patient&patient_id='+$("#set-patient-id").val()+'&clinic_id='+localStorage.getItem('clinic_id')+'&'+$('#update-client-appointment').serialize(),
+                    cache: false,
+                    //dataType: 'json',
+                    success: function(data){
+                        $('.w3-overlay').hide()
+                        console.log('sucess on update appointment')    
+                    },
+                    error:function(data){
+                        console.log('err -->'+data) 
+                        $('.w3-overlay').hide()
+                        $('#modal-error').show()
+                    }
+                })
+            }
+        }, 500)
+    })
+
+})
+
+</script>

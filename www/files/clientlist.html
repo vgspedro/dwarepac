@@ -1,0 +1,75 @@
+
+
+<div class="w3-container">
+	<h5 class="w3-center"><i class="w3-xlarge fa fa-user-o"></i> <span class="set-clinic-name"></span></h5>
+      <div class="w3-responsive">
+        <table id="dataTables" class="display nowrap table-striped w3-table-all table-hover table" style="width:100%">
+          <thead class="w3-light-grey w3-border-top">
+          	<th>#</th>
+			      <th>Nome</th>
+            </tr>
+          </thead>
+        <tbody id="add-patients">
+        </tbody>
+         <thead class="w3-light-grey w3-border-top">
+          	<tr>
+            <th>#</th>
+            <th>Nome</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+</div>
+<script>
+
+$('.set-clinic-name').text(localStorage.getItem('clinic_name'))
+
+/*
+window.plugins.CallNumber.callNumber(function(){alert('calling')}, function(){alert('calling')},'09639639633');
+*/
+function getPatients(){
+	obj = ''
+    $.ajax({  
+        url: url,      
+        type: "GET",
+        data:'action=list_patients&clinic_id='+localStorage.getItem('clinic_id'),
+        dataType: 'json',
+        success: function(data){
+			for (u=0; u<data.length; u++){
+				obj +='<tr><td><button class="w3-button w3-blue w3-round w3-border" onclick="templateShowClient('+data[u].id+')">'+data[u].id+'</button></td><td> '+data[u].name+'</td></tr>'
+			}
+			$('#add-patients').html(obj)
+            $('#dataTables').DataTable({
+              "order": [[ 1, "asc" ]],
+				      language: {
+        			 "lengthMenu": "Mostrar _MENU_",
+        			 "zeroRecords": '0 Resultados',
+        			 "info":"Mostrar página _PAGE_ de _PAGES_",
+        			 "infoEmpty": 'Sem resultados',
+        			 "search": 'Procurar',
+        			 "paginate": {
+        			 	 "previous": 'Anterior',
+        				  "next": 'Seguinte'
+        			 }
+    			}
+			})
+        },
+        error:function(data){
+           $('.w3-overlay').hide()
+           $('#modal-error').show()
+        }
+    })
+}
+
+getPatients()
+
+
+function toogleClientList(){
+
+  $('#dataTables_filter').css('display') == 'none' ?
+    $('#dataTables_filter, #dataTables_length').css('display', 'block') :
+    $('#dataTables_filter, #dataTables_length').css('display', 'none') 
+}
+
+</script>
+

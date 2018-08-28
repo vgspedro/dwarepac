@@ -1,0 +1,276 @@
+
+<div class="w3-row w3-padding-8 w3-white w3-xlarge">
+  <span style="width:1px" class="w3-padding-small w3-col w3-xlarge">
+    <i class="w3-xlarge fa fa-id-card"></i>
+  </span>
+  <div class="w3-rest w3-center w3-padding w3-large">
+    <span class="set-clinic-name" style="line-height: 33px;margin-left: -46px"></span>
+  </div>
+</div>
+
+<div class="w3-padding-small w3-margin-top">
+  <div class="w3-white">
+    <form class=" w3-padding-small w3-row" id="profile-form">
+      <div class="w3-col s6">&nbsp;
+        <input type="file" id="set-profile-image" name="set-profile-image" class="w3-hide" accept="image/*">
+        <input type="text" id="set-profile-image-64" name="set-profile-image-64" class="w3-hide">
+      </div>
+      <div class="w3-col s12 w3-large edit-profile">
+        <span class="w3-left w3-left w3-col w3-sand w3-block w3-button w3-border w3-round" onclick="$('#modal-update-password').show()" style="width:49%"><i class="w3-xlarge fa fa-key"></i></span>
+        <span class="w3-right w3-blue w3-col w3-block w3-button w3-border w3-round" onclick="profileSetEditFields(1)" style="width:49%"><i class="w3-xlarge fa fa-edit"></i></span>
+      </div>
+
+      <div class="w3-col s12 w3-large action-profile w3-hide">
+         <span class="w3-left w3-left w3-col w3-sand w3-block w3-button w3-border w3-round" onclick="$('#modal-update-password').show()" style="width:49%"><i class="w3-xlarge fa fa-key"></i></span>
+        <span class="w3-button w3-block w3-border w3-round w3-right" style="width:49%" onclick="profileSetEditFields(0)"><i class="w3-xlarge fa fa-remove"></i></span>
+      </div>
+
+      <!--div class="w3-col s2">&nbsp;</div-->
+      <div class="w3-col s12 w3-margin-top w3-margin-bottom set-image-user w3-light-gray w3-padding w3-border w3-round" onclick="cameraTakePicture()">
+          <img class="w3-image w3-opacity-min" id="profile-image" onerror="this.src='/images/no-user.jpg'" style="width:100%;min-height: 75px">
+      </div>
+         
+  
+      <div class="w3-col s12">
+        <label>Cartão Cidadão</label>
+        <input type="text" class="w3-input w3-border w3-round w3-light-gray" id="profile-citizen-card" readonly name="citizen-card">
+        <div>&nbsp;<span class="required profile-citizen-card w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+      
+      <div class="w3-col s12">
+        <label>NIF</label>
+        <input type="number" id='profile-nif' class="w3-input w3-border w3-round w3-light-gray" readonly name="nif">
+        <div>&nbsp;<span class="required profile-nif w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+      
+      <div class="w3-col s12">
+        <label>Data Nascimento</label>
+        <input type="date" dateformat="dd/mm/yyyy" id='profile-birth-date' class="w3-input w3-border w3-round w3-light-gray" readonly name="birth-date">
+        <div>&nbsp;<span class="required profile-birth-date w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+<!--
+      <div class="w3-col s12">
+        <label>Time</label>
+        <input type="time" id='profile-time' ontouchstart="setTime()" class="w3-input w3-border w3-round w3-light-gray" readonly name="time">
+        <div>&nbsp;<span class="required profile-time w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+-->
+      <div class="w3-col s12">
+        <label>Email</label>
+        <input type="text" id='profile-email' class="w3-input w3-border w3-round w3-light-gray" readonly name="email">
+        <div>&nbsp;<span class="required profile-email w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+ 
+      <div class="w3-col s12">
+        <label>Telefone</label>
+        <input type="text" id='profile-telephone' class="w3-input w3-border w3-round w3-light-gray" readonly name="telephone">
+        <div>&nbsp;<span class="required profile-telephone w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+
+      <div class="w3-col s12">
+        <label>Telemóvel</label>
+        <input type="text" id='profile-mobile' class="w3-input w3-border w3-round w3-light-gray" readonly name="mobile">
+        <div>&nbsp;<span class="required profile-mobile w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+
+      <div class="w3-col s12">
+        <label>Morada</label>
+        <input type="text" id='profile-address' class="w3-input w3-border w3-round w3-light-gray" readonly name="address">
+        <div>&nbsp;<span class="required profile-address w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+
+      <div class="w3-col s12">
+        <label>Cidade</label>
+        <input type="text" id='profile-city' class="w3-input w3-border w3-round w3-light-gray" readonly name="city">
+        <div>&nbsp;<span class="required profile-city w3-text-red w3-hide">Obrigatório *</span></div>
+      </div>
+
+      <div class="w3-col s12">
+        <label>Cod.Postal</label>
+        <div class="w3-row-padding">
+          <div class="w3-col s7" style="margin-left: -16px">
+            <input type="number" id='profile-postal-code-1' class="w3-input w3-border w3-round w3-light-gray" readonly name="postal-code-1">
+            <div><span class="required profile-postal-code-1 w3-text-red w3-hide">Obrigatório *</span></div>
+          </div>
+          <div class="w3-col s5">
+            <input type="number" id='profile-postal-code-2' class="w3-input w3-border w3-round w3-light-gray" readonly name="postal-code-2" style="width:calc(100% + 32px)">
+            <div><span class="required profile-postal-code-2 w3-text-red w3-hide">Obrigatório *</span></div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="w3-col s12 w3-large edit-profile">
+        <label>&nbsp;</label>
+        <span class="w3-right w3-blue w3-block w3-button w3-border w3-round" onclick="profileSetEditFields(1)"><i class="w3-xlarge fa fa-edit"></i></span>
+      </div>
+
+      <div class="w3-col s12 w3-large action-profile w3-hide">
+        <label class="w3-block">&nbsp;</label>
+            <span class="w3-button w3-left w3-block w3-col w3-border w3-round" onclick="profileSetEditFields(0)" style="width:49%"><i class="w3-xlarge fa fa-remove"></i></span>
+            <span class="w3-right w3-col w3-green w3-button w3-block w3-border w3-round" onclick="editUserProfile()" style="width:49%"><i class="w3-xlarge fa fa-check"></i></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+
+
+
+$('.set-clinic-name').text(localStorage.getItem('user_name'))
+
+/*
+param boolean 0||1 , cancels edit || allows edit 
+*/
+function profileSetEditFields(t){
+  if(t == 1){ 
+    $('#profile-form input, .set-image-user').attr('readonly', false).removeClass('w3-light-gray').addClass('w3-white')
+    $('.edit-profile').addClass('w3-hide')
+    $('.action-profile').removeClass('w3-hide')
+    $('.w3-image').removeClass('w3-opacity-min')
+  }
+  else {
+    $('#profile-form input, .set-image-user').attr('readonly', true).addClass('w3-light-gray').removeClass('w3-white')
+    $('.edit-profile').removeClass('w3-hide')
+    $('.action-profile').addClass('w3-hide')
+    $('.w3-image').addClass('w3-opacity-min')
+  }
+}
+
+/*
+get the user profile
+*/
+function getProfile(){
+    $.ajax({  
+        url: url,      
+        type: "GET",
+        data:'action=profile&clinic_id='+localStorage.getItem('clinic_id')+'&user_id='+localStorage.getItem('user_id'),
+        dataType: 'json',
+        cache:false,
+        success: function(data){
+          image = data.user_prof_pic ? data.user_prof_pic : 'images/no-user.jpg'
+        	$('#profile-image').attr('src',image)
+          $('#profile-citizen-card').val(data.cart_de_cid)
+
+          birth = data.data_de_nascimento ? data.data_de_nascimento : ''
+
+          if(birth){
+            iso_date = birth.split("/")
+            birth = iso_date[2]+'-'+iso_date[1]+'-'+iso_date[0]
+          }
+
+          $('#profile-birth-date').val(birth)
+          $('#profile-city').val(data.cidade)
+          $('#profile-postal-code-1').val(data.codigo_postal_1)
+          $('#profile-postal-code-2').val(data.codigo_postal_2)
+          $('#profile-nif').val(data.nif)
+          $('#profile-email').val(data.email)
+          $('#profile-telephone').val(data.telefone)
+          $('#profile-mobile').val(data.telemovel)
+          $('#profile-address').val(data.morada)
+
+          console.log(data)
+        },
+        error:function(data){
+           $('.w3-overlay').hide()
+           $('#modal-error').show()
+        }
+    })
+}
+
+
+function editUserProfile(){
+    $('.w3-overlay').show()
+    setTimeout(function(){
+    $.ajax({  
+        url: url,      
+        type: "GET",
+        data: 'action=save_user_profile&'+$('#profile-form').serialize()+'&clinic_id='+localStorage.getItem('clinic_id')+'&user_id='+localStorage.getItem('user_id'),
+        dataType: 'json',
+        cache: false,
+        success: function(data){
+            console.log(data)
+            $('.w3-overlay').hide()
+            if (data.status == '1'){
+              image = data.user_prof_pic ? data.user_prof_pic : 'images/no-user.jpg'
+              $('#profile-image').attr('src',image)
+              $('#profile-citizen-card').val(data.cart_de_cid)
+              $('#profile-birth-date').val(data.data_de_nascimento)
+              $('#profile-city').val(data.cidade)
+              $('#profile-postal-code-1').val(data.codigo_postal_1)
+              $('#profile-postal-code-2').val(data.codigo_postal_2)
+              $('#profile-nif').val(data.nif)
+              $('#profile-email').val(data.email)
+              $('#profile-telephone').val(data.telephone)
+              $('#profile-mobile').val(data.mobile)
+              $('#profile-address').val(data.morada)
+            }
+            else if(data.status == '0'){
+                $('#modal-info').show()
+                $('#modal-text-info').text(data.message)
+            }
+         },
+        error:function(data){
+            console.log(data)
+            $('.w3-overlay').hide()
+            $('#modal-error').show()
+        }
+    })
+    }, 500)
+}
+
+
+
+
+function updatePassword(){
+    $('.w3-overlay').show()
+    $('.no-match, .empty-password').addClass('w3-hide')
+
+    setTimeout(function(){
+
+      if (!$('#pass-1').val() && !$('#pass-2').val() || !$('#pass-0').val() ){
+        $('.empty-password').removeClass('w3-hide')
+        $('.w3-overlay').hide()
+      }  
+
+      else if ($('#pass-1').val() != $('#pass-2').val()){
+        $('.no-match').removeClass('w3-hide')
+        $('.w3-overlay').hide()
+      }  
+    else{
+    $('#modal-update-password').hide() 
+    $.ajax({  
+        url: url,      
+        type: "GET",
+        data: 'action=edit_user_password&'+$('#set-password').serialize()+'&clinic_id='+localStorage.getItem('clinic_id')+'&user_id='+localStorage.getItem('user_id'),
+        dataType: 'json',
+        cache: false,
+        success: function(data){
+            console.log(data)
+            $('.w3-overlay').hide()
+            if (data.status == '1'){
+                $('#pass-0, #pass-1, #pass-2').val('')
+                $('#modal-update-password').hide()
+                $('#modal-success').show()
+                $('#modal-text-success').text(data.message)
+            }
+            else if(data.status == '0'){
+                $('#modal-info').show()
+                $('#modal-text-info').text(data.message)
+            }
+         },
+        error:function(data){
+          console.log(data)
+           $('.w3-overlay').hide()
+           $('#modal-error').show()
+        }
+    })
+  }
+    }, 500)
+}
+
+
+
+getProfile()
+
+</script>

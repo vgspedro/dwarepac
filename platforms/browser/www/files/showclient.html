@@ -1,0 +1,264 @@
+<div class="w3-row w3-padding-8 w3-white w3-xlarge">    
+    <span  style="width:46px" class="w3-col w3-button w3-button-transparent w3-xlarge w3-text-blue" onclick="templateLoader('clientlist')">
+        <i class="fa fa-chevron-left"></i>
+    </span>
+    <div class="w3-rest w3-center w3-padding w3-large">
+        <span style="line-height: 33px;margin-left: -46px">Ficha Paciente</span>
+    </div>
+</div>
+
+<div class="w3-padding-small w3-margin-top show-after-load w3-hide">
+    <div class="w3-white">
+        <div class="w3-container w3-large" id="patient-info" style="min-height: 160px">
+            <div class="w3-row w3-padding-8">
+                <div class="w3-col set-image-user" onclick="cameraTakePicture()" style="width:70px">
+                    <img class="w3-image w3-circle w3-border" id="profile-image" onerror="this.src='/images/no-user.jpg'" style="width:100%;min-height: 75px">
+                </div>
+                <div class="rest w3-padding-16">
+                    <div class="w3-text-blue-gray w3-center w3-padding-small set-client-name"></div>
+                    <div class="w3-text-blue-gray w3-padding-small w3-center">Idade: <b class="set-client-age"></b> Sexo: <b class="set-client-sex"></b></div>
+                </div>
+                <div class="set-message-phonecall">
+                </div>
+            </div>
+        </div>
+
+        <form class="w3-padding-small" id="pacient-form"> 
+            <input id="set-patient-id" class="edit-profile w3-hide" type="hidden">
+            <input type="file" id="set-profile-image" name="set-profile-image" class="w3-hide" accept="image/*">
+            <input type="text" id="set-profile-image-64" name="set-profile-image-64" class="w3-hide">
+                
+            <label>Próxima Consulta</label>
+            <textarea placeholder="Próx.Consulta" rows="5" class="w3-input w3-border w3-round" name="prox_consulta"></textarea>
+            <div>&nbsp;</div>
+                
+            <label>Observação</label>
+            <textarea placeholder="Observação" rows="5" class="w3-input w3-border w3-round" name="observacao"></textarea>
+            <div>&nbsp;</div>
+                
+            <label>Nome *</label>
+            <input type="text" placeholder="Nome *" class="w3-input w3-border w3-round needed" name="nome">
+            <div>&nbsp;<span class="required nome w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+            <label>Telemovel *</label>
+            <input type="number" placeholder="Telemovel *" class="w3-input w3-border w3-round needed" name="telemovel">
+            <div>&nbsp;<span class="required telemovel w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+            <label>Telefone</label>
+            <input type="number" placeholder="Telefone" class="w3-input w3-border w3-round" name="telefone">
+            <div>&nbsp;</div>
+
+            <label>Data Nascimento *</label>
+            <input type="date" format="dd/mm/yyyy" class="w3-input w3-border w3-round w3-white needed" name="data_nascimento">
+            <div>&nbsp;<span class="required data_nascimento w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+            <label>NIF *</label>
+            <input type="number" placeholder="xxxxxxxxx *" class="w3-input w3-border w3-round needed" name="nif">
+            <div>&nbsp;<span class="required nif w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+            <label>SNS</label>
+            <input type="number" placeholder="SNS" id="sns" class="w3-input w3-border w3-round" name="sns">
+            <div>&nbsp;</div>
+
+            <label>Cartão Cidadão</label>
+            <input type="text" placeholder="Cartão Cidadão" class="w3-input w3-border w3-round" name="cartao_cidadao">
+            <div>&nbsp;</div>
+
+            <label>Sexo</label><br>
+
+            <div class="w3-col s6 w3-center">Masc. <input type="radio" value="M" class="w3-check" name="sexo"></div>
+            <div class="w3-col s6 w3-center">Femi. <input type="radio" value="F" class="w3-check" name="sexo"></div>
+            <div>&nbsp;</div>
+
+            <label>Morada *</label>
+            <input type="text" placeholder="Morada *" class="w3-input w3-border w3-round needed" name="morada">
+            <div>&nbsp;<span class="required morada w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+            <label>Código Postal *</label>
+            <div class="w3-row-padding">
+                <div class="w3-col s7" style="margin-left: -16px">
+                    <input type="number" placeholder="xxxx *" class="w3-input w3-border w3-round needed" name="c_postal_4">
+                    <div>&nbsp;<span class="required c_postal_4 w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+                </div>
+                <div  class="w3-col s5">
+                    <input type="number" placeholder="xxx *" class="w3-input w3-border w3-round needed" name="c_postal_3" style="width:calc(100% + 32px)">
+                    <div style="margin-right: -32px">&nbsp;<span class="required c_postal_3 w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+                </div>
+            </div>
+
+            <label>Cidade *</label>
+            <input type="text" placeholder="Cidade *" class="w3-input w3-border w3-round needed" name="cidade">
+            <div>&nbsp;<span class="required cidade w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+            <label>Email *</label>
+            <input type="email" placeholder="Email *" class="w3-input w3-border w3-round needed" name="email_">
+            <div>&nbsp;<span class="required email_ w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+            <label>Nacionalidade *</label>
+            <select class="w3-input w3-border w3-round w3-white" name="nacionalidade">  
+            </select>
+            <div>&nbsp;</div>
+
+            <div class="w3-row w3-padding-16 w3-center w3-large">
+                <div class="w3-col s12">
+                    <span class="w3-left w3-round w3-button w3-block w3-grey w3-padding w3-col" style="width:49%" onclick="templateLoader('appointment')">Editar</span>
+                    <button class="w3-right w3-padding w3-block w3-round w3-button w3-blue w3-col" style="width:49%">Gravar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+
+    $(function() {
+        initializeShowClientFields()
+    })
+
+
+
+    function getPatient() {
+        obj = ''
+        $.ajax({  
+            url: url,      
+            type: "GET",
+            data:'action=show_patient&patient_id='+$("#set-patient-id").val()+'&clinic_id='+localStorage.getItem('clinic_id'),
+            dataType: 'json',
+            cache:false,
+            success: function(data){
+                            
+                phone = data.paciente_telemovel ? '<div class="w3-center w3-padding-32"><i class="w3-button w3-border w3-round fa fa-phone" onclick="phoneCall(\''+data.paciente_telemovel+'\')"></i> '+data.paciente_telemovel+' <i class="w3-button w3-border w3-round fa fa-comment" onclick="phoneSms(\''+data.paciente_telemovel+'\')"></i></div>' : '' ;
+
+                $('.set-message-phonecall').html(phone)
+                
+                if(data.paciente_dataNascimento)
+                    {
+                        birth_date = data.paciente_dataNascimento.split("/")
+                        birth_date = birth_date[2]+'-'+birth_date[1]+'-'+birth_date[0] 
+                    }
+
+                else birth_date =''
+                
+                data.paciente_telefone = data.paciente_telefone ? data.paciente_telefone.replace("+", "00") : data.paciente_telefone
+                data.paciente_telemovel = data.paciente_telemovel ? data.paciente_telemovel.replace("+", "00") : data.paciente_telemovel
+
+                $('#profile-image').attr('src', data.paciente_profile_picture)
+                $('.set-client-name').html(data.nome)
+                $('.set-client-age').html(data.idade)
+                $('.set-client-sex').html(data.sexo)
+                $('.set-client-mobile').html(data.mobile)
+                $('#pacient-form input[name="nome"]').val(data.nome)
+                $('#pacient-form input[name="telemovel"]').val(data.paciente_telemovel)
+                $('#pacient-form input[name="telefone"]').val(data.paciente_telefone)
+                $('#pacient-form input[name="data_nascimento"]').val(birth_date)
+                $('#pacient-form input[name="nif"]').val(data.paciente_nif)
+                $('#pacient-form input[name="sns"]').val(data.paciente_sns)
+                $('#pacient-form input[name="cartao_cidadao"]').val(data.paciente_cartao_cidadao)
+                $("#pacient-form  input[value='" + data.sexo + "']").prop('checked', true)
+                $('#pacient-form input[name="morada"]').val(data.paciente_morada)
+                $('#pacient-form input[name="sns"]').val(data.paciente_sns)
+                $('#pacient-form input[name="c_postal_4"]').val(data.paciente_cod_postal)
+                $('#pacient-form input[name="c_postal_3"]').val(data.paciente_cod_postal2)
+                $('#pacient-form input[name="cidade"]').val(data.paciente_cidade)
+                $('#pacient-form input[name="email_"]').val(data.paciente_email)
+                $('#pacient-form select[name="nacionalidade"] option[value='+data.paciente_nacionalidade+']').attr('selected','selected');
+
+                $('html,body').scrollTop(0)
+                $('.w3-overlay').hide()
+                $('.show-after-load').removeClass('w3-hide')
+            },
+
+            error:function(data){
+               $('.w3-overlay').hide()
+               $('#modal-error').show()
+            }
+        })
+    }
+
+
+    function phoneCall(nr){window.open('tel:'+nr, '_system', 'location=yes')}
+    function phoneSms(nr){window.open('sms:'+nr, '_system', 'location=yes')}
+
+
+    $('#pacient-form').on('submit', function(e){
+
+        now = new Date()
+        month = now.getMonth()+1 > 9 ? String(now.getMonth()+1) : '0'+(now.getMonth()+1)
+        today = now.getFullYear()+'-'+month+'-'+now.getDate()
+
+        flag = false
+
+        e.preventDefault()
+        err=[]
+        $('.w3-overlay').show()
+        $('.required').addClass('w3-hide')
+
+        setTimeout(function(){
+
+            $('#pacient-form .needed').each(function() {
+                if(!$('input[name='+$( this ).attr( "name" )+']').val()){
+                    $('.'+$( this ).attr( "name" )).removeClass('w3-hide')
+                    err.push($( this ).attr( "name" ))
+                }
+            })
+    
+            /*required fields*/
+            if (err.length > 0){
+                $('.w3-overlay').hide()
+                $('html, body').animate({scrollTop: $('input[name='+err[0]+']').offset().top-95}, 750)
+            }
+
+            else {
+                if( $('input[name="data_nascimento"]').val() > today ){
+                    $('.w3-overlay').hide()
+                    $('#modal-text-info').html('A Data Inserida não é válida.<br>A data máxima é '+now.getDate()+'/'+month+'/'+now.getFullYear())
+                    $('#modal-info').show()
+                }
+                else
+                    flag = true
+            }
+
+            if (flag == true){
+                console.log('data to server update client -->' + $('#pacient-form').serialize())
+                $.ajax({  
+                    url: url,      
+                    type: "GET",
+                    data:'action=add_patient&patient_id='+$("#set-patient-id").val()+'&clinic_id='+localStorage.getItem('clinic_id')+'&'+$('#pacient-form').serialize(),
+                    cache: false,
+                    //dataType: 'json',
+                    success: function(data){
+                        $('.w3-overlay').hide()
+                        console.log('sucess update client onpacient-form')    
+                    },
+                    error:function(data){
+                        console.log('err -->'+data) 
+                        $('.w3-overlay').hide()
+                        $('#modal-error').show()
+                    }
+                })
+            }
+        }, 500)
+    })
+
+
+    /*Default values in form*/
+    function initializeShowClientFields(){ 
+        nationality = ''
+        for(c = 0; c <countries.length; c++)
+            nationality += ('<option value="'+countries[c].id+'">'+countries[c].name+'</option>')
+        $('#pacient-form select[name="nacionalidade"]').html(nationality)
+
+        setTimeout(function(){
+            getPatient()
+        }, 500)
+    }
+
+
+
+
+
+
+</script>
+

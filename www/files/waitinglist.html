@@ -1,0 +1,70 @@
+    <div class="w3-row w3-padding-8 w3-white w3-xlarge">
+        <span  style="width:46px" class="w3-col w3-button w3-button-transparent w3-xlarge w3-text-blue" ontouchstart="templateLoader('appointment')">
+            <i class="fa fa-chevron-left"></i>
+        </span>
+        <div class="w3-rest w3-center w3-padding w3-large">
+            <span style="line-height: 33px;margin-left: -46px">Lista de espera</span>
+        </div>
+    </div>
+
+    <div class="w3-padding-small w3-margin-top">
+        <div class="w3-white" id="users-list"></div>
+    </div>
+
+<script type="text/javascript">
+
+
+    arr = {
+        "list":[
+            {"id":"55","client_id":"7","status":"Lista Espera","name":"Zé Manel Anzol Roberto Andrade Australopiteco","speciality":"Cardiologia","image":"images/no-user.jpg"},
+            {"id":"29","client_id":"6","status":"Lista Espera","name":"Paranthropus Robustus Marta Nunes Cabeças","speciality":"Oftamologia","image":"images/avatar5.png"},
+            {"id":"16","client_id":"5","status":"Lista Espera","name":"José Gomes Cabeçadas Magno Sahelanthropus Tchadensis","speciality":"Endocrinologia e Nutrição","image":"images/no-user.jpg"},
+            {"id":"99","client_id":"4","status":"Lista Espera","name":"Bruno Martires Ardipithecus Ramidus","speciality":"Cirurgia Plástica Reco. e Est.","image":"images/no-user.jpg"},
+            {"id":"150","client_id":"3","status":"Lista Espera","name":"Marta Nunes Cabeças Paranthropus Robustus","speciality":"Neurocirurgia","image":"images/avatar5.png"},
+            {"id":"125","client_id":"2","status":"Lista Espera","name":"Sahelanthropus Tchadensis José Gomes Cabeçadas Magno Sahelanthropus Tchadensis","speciality":"Doenças Infecciosas","image":"images/no-user.jpg"},
+        ]
+    }
+
+
+    $(function() {
+        patientsList()
+    })
+
+
+    function patientsList() {
+
+        obj =''
+        for (t=0;t<arr.list.length;t++){
+            obj += '<div id="waiting-list-'+arr.list[t].id+'" class="w3-row w3-padding-8 w3-border-bottom" onclick="setAppointment(\''+Object.values(arr.list[t])+'\')"><div class="w3-col w3-margin-left" style="width:54px"><div class="users-list-img w3-circle w3-border" style="background-image: url('+arr.list[t].image+')"></div></div><div class="rest"><div style="font-size:13px" class="w3-padding-small">'+arr.list[t].name+'</div><div class="w3-text-indigo w3-padding-small" style="font-size:12px"><b>Dr.'+localStorage.getItem('user_name')+' - '+arr.list[t].speciality+'</b></div></div></div>'
+        }
+
+        $('#users-list').html(obj)
+    }
+
+    function setAppointment(array_info){
+
+        minScheduler = localStorage.getItem('user_schedule')
+        array_info = array_info.split(',')
+        now = new Date()   
+        month = now.getMonth()+1 > 9 ? String(now.getMonth()+1) : '0'+(now.getMonth()+1)
+        obj = '<option selected value="'+array_info[2]+'">'+array_info[2]+'</option>'
+
+        $('.set_date').html(now.getDate()+'/'+month+'/'+now.getFullYear()).val(now.getDate()+'/'+month+'/'+now.getFullYear())
+        $('.appointment_id').val(array_info[0])
+        $('.patient_name').html(array_info[3])
+        $('.set_treatment').html('<option selected disabled>'+array_info[4]+'</option>')
+        $('.show_client_data').attr('onclick', 'templateShowClient('+array_info[1]+')')
+        $('.set_border_status').css('border', '4px solid black')
+        $('.appointment_id').val(array_info[0])
+        minAllowed = parseInt(hoursMinutesToSeconds(now.getHours()+':00'))+parseInt(minScheduler)
+        $('.starts_at').val(now.getHours()+':00')
+        $('.ends_at').val(secondsToHoursMinutes(minAllowed))
+
+        for (g=0; g< statuses.length; g++)
+            obj += '<option value="'+statuses[g].name+'">'+statuses[g].name+'</option>'
+        $('.status_info').html(obj)
+
+        $('#modal-client-appointment').show()
+
+    }
+</script>

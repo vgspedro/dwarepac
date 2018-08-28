@@ -1,0 +1,242 @@
+    <div class="w3-row w3-padding-8 w3-white w3-xlarge">
+        <input id="set-patient-id" type="hidden">
+        <span  style="width:46px" class="w3-col w3-button w3-button-transparent w3-xlarge w3-text-blue" ontouchstart="templateLoader('appointment')">
+            <i class="fa fa-chevron-left"></i>
+        </span>
+        <div class="w3-rest w3-center w3-padding w3-large">
+            <span style="line-height: 33px;margin-left: -46px">Nova marcação</span>
+        </div>
+    </div>
+
+
+    <div class="w3-padding-small w3-margin-top">
+        <div class="w3-white">
+            <form class="w3-padding-small" id="new-appointment-form"> 
+
+                <label>Paciente *</label>
+                <input type="text" placeholder="&#xF002; Nome/NIF" style="font-family:Roboto, FontAwesome" class="w3-input w3-border w3-round needed" name="nome" onkeyup='searchByPatientName(this.value)'>
+                <div>&nbsp;<span class="required nome w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+                <label>Telemovel *</label>
+                <input type="number" placeholder="Telemovel" class="w3-input w3-border w3-round needed" name="telemovel">
+                <div>&nbsp;<span class="required telemovel w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+
+                <label>Especialista</label>
+                <select class="w3-input w3-border w3-round w3-light-grey" name="especialista">
+                <select>
+                <div>&nbsp;</div>
+
+                <label>Especialidade</label>
+                <select class="w3-input w3-border w3-round w3-white" name="especialidade">
+                </select>
+                <div>&nbsp;</div>
+
+                <label>Tratamento</label>
+                <select class="w3-input w3-border w3-round needed w3-white" name="tratamento">
+                </select>
+                <div>&nbsp;</div>
+
+                <label>Data *</label>
+                <input type="date" class="w3-input w3-border w3-round w3-white needed" name="data" onchange="onlyPresentAndFuture(this.value)">
+                <div>&nbsp;<span class="required data w3-text-red w3-hide">Obrigatório *</span></div>
+                
+                <div class="w3-col w3-left" style="width:49%">
+                    <label>Incio *</label>
+                    <input type="time" class="w3-input w3-border w3-round needed w3-white" name="inicio" onchange="setTimeSchedule()">
+                    <div>&nbsp;<span class="required inicio w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+                </div>
+                <div class="w3-col w3-right" style="width:49%">
+                    <label>Fim *</label>
+                    <input type="time" class="w3-input w3-border w3-round needed w3-white" name="fim" onchange="setMinSchedule(this.value)">
+                    <div>&nbsp;<span class="required fim w3-text-red w3-hide w3-right">Obrigatório *</span></div>
+                </div>
+
+                <label>Descrição</label>
+                <textarea placeholder="Comentário sobre a consulta" rows="6" class="w3-input w3-border w3-round w3-white" name="descricao"></textarea>
+                <div>&nbsp;<span class="required descricao w3-text-red w3-hide">Obrigatório *</span></div>
+
+                <div class="w3-row w3-padding-16 w3-center w3-large">
+                    <div class="w3-col s12">
+                        <span class="w3-left w3-round w3-button w3-block w3-grey w3-padding w3-col" style="width:49%" ontouchstart="templateLoader('appointment')">Cancelar</span>
+                        <button class="w3-right w3-padding w3-block w3-round w3-button w3-blue w3-col" style="width:49%">Gravar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+
+    /*DONT FORGET TO GET THIS  -------------------------
+    speciality and treatment
+    must get in when user selects clinic
+    and set it on localstore array
+    */
+
+    esp = {
+        "sp":[
+            {"id":1,"name":"Cardiologia"},
+            {"id":2,"name":"Cirurgia Plástica Reco. e Est."},
+            {"id":3,"name":"Doenças Infecciosas"},
+            {"id":4,"name":"Endocrinologia e Nutrição"},
+            {"id":5,"name":"Neurocirurgia"},
+            {"id":6,"name":"Oftamologia"}
+        ],
+        "tr":[
+            {"id":1,"name":"Ecografia"},
+            {"id":2,"name":"Raio X"}
+        ]
+    }
+
+    $(function() {
+        initializeNewAppoinmentFields()
+    })
+
+    /*Default values in form*/
+    function initializeNewAppoinmentFields(){ 
+
+        treatment = ''
+        speciality = ''
+
+        now = new Date()   
+        
+        month = now.getMonth()+1 > 9 ? String(now.getMonth()+1) : '0'+(now.getMonth()+1)
+        $('#new-appointment-form input[name="data"]').val(now.getFullYear()+'-'+month+'-'+now.getDate())
+
+        $('#new-appointment-form input[name="inicio"]').val(now.getHours()+':00')
+        minScheduler = localStorage.getItem('user_schedule')
+        minAllowed = parseInt(hoursMinutesToSeconds(now.getHours()+':00'))+parseInt(minScheduler)
+        $('#new-appointment-form input[name="fim"]').val(secondsToHoursMinutes(minAllowed))
+        
+
+        for(h = 0; h<esp.sp.length; h++)
+            speciality += ('<option value="'+esp.sp[h].id+'">'+esp.sp[h].name+'</option>')    
+            $('#new-appointment-form select[name="especialidade"]').html(speciality)
+
+
+        for(g = 0; g<esp.tr.length; g++)
+            treatment += ('<option value="'+esp.tr[g].id+'">'+esp.tr[g].name+'</option>')
+
+        $('#new-appointment-form select[name="tratamento"]').html(treatment)
+
+        $('#new-appointment-form select[name="especialista"]').html('<option disabled selected value="'+localStorage.getItem('user_id')+'">'+localStorage.getItem('user_name')+'</option>')
+
+    }
+
+
+    /*Get matches from DB only if search is bigger than 2 and its odd (3,5,7,9,n)*/
+    /*At least we prevent more ajax requests with no response from server*/
+
+    function searchByPatientName(search){
+        if(search.length > 2 && search.length % 2 != 0)
+            alert('get results from DB that match-->'+search)
+    }
+
+
+    $('#new-appointment-form').on('submit', function(e){
+        
+        e.preventDefault()
+        err=[]
+        flag = false
+        $('.w3-overlay').show()
+        $('.required').addClass('w3-hide')
+        
+        setTimeout(function(){
+        
+            $('#new-appointment-form .needed').each(function() {
+               if(!$('input[name='+$( this ).attr( "name" )+']').val()){
+                        $('.'+$( this ).attr( "name" )).removeClass('w3-hide')
+                        err.push($( this ).attr( "name" ))
+                    }
+            })
+
+            if(err.length>0){
+                $('.w3-overlay').hide()
+                $('html, body').animate({scrollTop: $('#new-appointment-form [name='+err[0]+']').offset().top-95}, 750)
+            }
+            
+            else
+                flag = true
+            
+            if(flag == true){
+                $.ajax({  
+                    url: url,      
+                    type: "GET",
+                    data:'action=add_patient&patient_id='+$("#set-patient-id").val()+'&clinic_id='+localStorage.getItem('clinic_id')+'&'+$('#new-appointment-form').serialize(),
+                    //dataType: 'json',
+                    cache: false,
+                    success: function(data){
+                        $('.w3-overlay').hide()
+                        alert('sucess on create new appoinment')    
+                    },
+                    error:function(data){
+                       $('.w3-overlay').hide()
+                       $('#modal-error').show()
+                    }
+                })
+            }
+        }, 500)
+    })
+
+
+    //only today and forward alowed
+    function onlyPresentAndFuture(dt){
+        now = new Date()
+        month = now.getMonth()+1 > 9 ? String(now.getMonth()+1) : '0'+(now.getMonth()+1)
+        today = now.getFullYear()+'-'+month+'-'+now.getDate()
+        showToday = now.getDate()+'/'+month+'/'+now.getFullYear()
+        
+        if(dt < today){
+            minAllowed = parseInt(hoursMinutesToSeconds(now.getHours()+':00'))+parseInt(minScheduler)
+            $('#new-appointment-form input[name="data"]').val(today)
+            $('#modal-info').show()
+            $('#modal-text-info').html('A data inserida não é válida.<br>A data minima é '+showToday)
+            $('#new-appointment-form input[name="inicio"]').val(now.getHours()+':00')
+            $('#new-appointment-form input[name="fim"]').val(secondsToHoursMinutes(minAllowed))
+
+        }
+        else
+            $('#new-appointment-form input[name="data"]').val(dt)
+    }
+
+    //hour only from day and equal or bigger than present
+    function setTimeSchedule(){
+
+        startsAt = $('#new-appointment-form input[name="inicio"]').val()
+        dt = $('#new-appointment-form input[name="data"]').val()
+        now = new Date()
+
+        month = now.getMonth()+1 > 9 ? String(now.getMonth()+1) : '0'+(now.getMonth()+1)
+        today = now.getFullYear()+'-'+month+'-'+now.getDate()
+        time =  startsAt.split(':')
+
+        if(dt <= today && now.getHours() > time[0] ){
+            minAllowed = parseInt(hoursMinutesToSeconds(now.getHours()+':00'))+parseInt(minScheduler)
+            $('#modal-info').show()
+            $('#modal-text-info').html('A hora inserida não é válida.<br>A hora minima é '+now.getHours()+':00')
+            $('#new-appointment-form input[name="inicio"]').val(now.getHours()+':00')
+            $('#new-appointment-form input[name="fim"]').val(secondsToHoursMinutes(minAllowed))
+        }
+        else {
+            startsAt = hoursMinutesToSeconds(startsAt);
+            $('#new-appointment-form input[name="fim"]').val(secondsToHoursMinutes(parseInt(startsAt) + parseInt(minScheduler))).focus()
+        }
+    }
+
+    function setMinSchedule(minTime){
+        now = new Date()
+        currentEndHour = hoursMinutesToSeconds(minTime)
+        hoursNow = hoursMinutesToSeconds(now.getHours()+':'+now.getMinutes())
+        currentStartHour = hoursMinutesToSeconds($('#new-appointment-form input[name="inicio"]').val())
+        minAllowed = parseInt(currentStartHour)+parseInt(minScheduler)
+
+        if( currentEndHour < minAllowed ){
+            $('#modal-info').show()
+            $('#modal-text-info').html('A hora inserida não é válida.<br>A hora minima é '+secondsToHoursMinutes(minAllowed))
+            $('#new-appointment-form input[name="fim"]').val(secondsToHoursMinutes(minAllowed))
+        }
+    }
+
+
+</script>

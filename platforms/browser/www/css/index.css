@@ -1,0 +1,43 @@
+
+* {-webkit-tap-highlight-color: rgba(0,0,0,0)}
+#dataTables_length label select{border-radius: 4px; padding: 8px;display: block;border: none;width: 75%;min-width:70px;border:1px solid #DDD;margin:0 auto}
+#dataTables_filter label input{border-radius: 4px; padding: 8px;display: block;margin:0 auto;border:1px solid #DDD;width: 75%;margin-bottom: 8px}
+#dataTables_length, #dataTables_filter{display:none}
+.small-pub{z-index:999999;display:none;position: fixed;bottom:0px;height: 100px;width: 100%;background-size:cover;background-position: center;background-repeat: no-repeat}
+.big-pub{background-size:cover;background-repeat: no-repeat; background-position: center;width:90%; height:97.5%}
+.w3-button-transparent:hover, .w3-button-transparent:focus{background:transparent!important;background-color:transparent!important;color:#00FFFF!important}
+.mw100vh{min-height: 100vh}
+.logo-img{height:40px}
+.btn-close{padding:6px 24px;margin-right:-2px}
+.w3-sidebar{display:none;padding-top:150px}
+.w3-bar-block{text-transform: uppercase;font-weight: 100}
+table.dataTable tbody th, table.dataTable tbody td {padding: 8px 8px}
+.btn-52-52{z-index:99;width: 52px;height: 52px; position:fixed;right:16px}
+.btn-tag{width: 128px;z-index: 99; position: fixed;right: 86px;text-align: center;padding: 8px 0px}
+
+
+
+.fc button, .fc-button-group, .fc-time-grid .fc-event .fc-time span{display:block!important;z-index: 0!important}
+.fc-button{ outline-style: none; border:0px!important; border-radius:0px!important; background: #FFF!important;margin:2px 2px 2px 2px!important}
+.fc-button:hover{background: #CCC!important}
+.fc-center h2{font-size: 15px!important}
+.fc-center{padding: 10px 20% 0px 20%;margin-bottom: -10px!important}
+.fc-state-active{color: #2196F3}
+.fc button .fc-icon {outline-style: none;top: -0.09em}
+.fc hr, .fc tbody, .fc td, .fc th, .fc thead, .fc-row {border: 0px}
+.fc-state-active, .fc-state-down {box-shadow: 0px 0px 0px #FFF}
+.fc-day-header {padding: 8px 0px 8px 0px!important;font-size: 14px}
+.fc-day-number {font-size: 16px; float:none!important}
+td.fc-today > span{color:#FFF;border-radius: 50%;background: #999;padding: 7px!important}
+.fc-day-top{padding:6px 0px!important}
+.users-list-img {height: 48px;width: 48px;background-position: center;background-repeat: no-repeat;background-size: contain}
+.fc-event{border:0px solid transparent!important}
+.fc-event-container{position:absolute}
+.month-container{position: relative;width: 9px;top: -36px;left: 14px}
+.w3-badge{height: 9px;width:9px;padding: 0px!important;position: absolute}
+.fc td .fc-event-container,.fc-event-container > a {background: transparent!important;border-radius: 0!important}
+.fc-day-grid-event {margin:0px padding: 0px}
+.fc-time-grid .fc-event{margin: 8px 2px!important}
+.fc-content-skeleton > table > tbody{background: red;height: 0px!important}
+.fc-day-grid-event {margin: 4px 2px 0px 0px;position: absolute;right: 50%}
+.fc-unselectable {margin-top: -8px}

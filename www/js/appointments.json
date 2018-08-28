@@ -1,0 +1,19 @@
+[
+{"id":0,"title":"Oftamologia","name":"Patricia Margarida Lapa Silva", "start":"2018-08-21T09:00:00+00:00","end":"2018-08-21T09:30:00+00:00","status":"Marcado", "color":"#5484ed","user_id":7, "room":"Sala 49"},
+{"id":1,"title":"Cardiologia","name":"Manel Afonso Margarida Filipe", "start":"2018-08-22T15:00:00+00:00","end":"2018-08-22T15:30:00+00:00","status":"Confirmado","color":"#51b749","user_id":5, "room":"Sala 20"},
+{"id":2,"title":"Oftamologia","name":"Pedro Nunes Andrade Oliveira de Maria", "start":"2018-08-23T17:30:00+00:00","end":"2018-08-23T18:00:00+00:00","status":"Desmarcou", "color":"#dbadff","user_id":3, "room":"Sala 29"},
+{"id":3,"title":"Oftamologia","name":"António Pereira Fidalgo Veiga", "start":"2018-08-20T08:30:00+00:00","end":"2018-08-20T09:00:00+00:00","status":"Enviado SMS", "color":"#a4bdfc","user_id":8, "room":"Sala 77"},
+{"id":4,"title":"Oftamologia","name":"Nunes Rameira Andrade", "start":"2018-08-18T09:00:00+00:00","end":"2018-08-18T09:30:00+00:00","status":"Falta Médico", "color":"#fbd75b","user_id":2, "room":"Sala 66"},
+{"id":5,"title":"Oftamologia","name":"Rodrigues Marta Margarida Lopes", "start":"2018-08-19T09:00:00+00:00","end":"2018-08-19T09:30:00+00:00","status":"Faltou", "color":"#dc2127","user_id":4, "room":"Sala 69"},
+{"id":7,"title":"Oftamologia","name":"Bruno Piruças Santos de Abreu", "start":"2018-08-21T09:00:00+00:00","end":"2018-08-21T09:30:00+00:00","status":"Não Atende", "color":"#ff887c","user_id":7, "room":"Sala 11"},
+{"id":8,"title":"Oftamologia","name":"Miguel Martim Filipe Viegas", "start":"2018-08-22T09:00:00+00:00","end":"2018-08-22T09:30:00+00:00","status":"Presente", "color":"#fbd75b","user_id":6, "room":"Sala 51"},
+{"id":9,"title":"Oftamologia","name":"Luis Andrade Reis Fernando", "start":"2018-08-23T09:00:00+00:00","end":"2018-08-23T09:30:00+00:00","status":"Remarcado Pela Clínica", "color":"#46d6db","user_id":9, "room":"Sala 96"},
+{"id":10,"title":"Oftamologia","name":"Patricia Margarida Lapa Silva", "start":"2018-08-23T12:00:00+00:00","end":"2018-08-23T12:30:00+00:00","status":"Presente", "color":"#fbd75b","user_id":6, "room":"Sala 4A"},
+{"id":11,"title":"Oftamologia","name":"Miguel Martim Filipe Viegas", "start":"2018-08-23T13:00:00+00:00","end":"2018-08-23T13:30:00+00:00","status":"Presente", "color":"#fbd75b","user_id":6, "room":"Sala 4A"},
+{"id":12,"title":"Oftamologia","name":"António Pereira Fidalgo Veiga", "start":"2018-08-23T13:30:00+00:00","end":"2018-08-23T14:00:00+00:00","status":"Enviado SMS", "color":"#a4bdfc","user_id":8, "room":"Sala 4B"},
+{"id":13,"title":"Oftamologia","name":"Luis Andrade Reis Fernando", "start":"2018-08-20T09:00:00+00:00","end":"2018-08-20T09:30:00+00:00","status":"Remarcado Pela Clínica", "color":"#46d6db","user_id":9, "room":"Sala 96"},
+{"id":14,"title":"Oftamologia","name":"Patricia Margarida Lapa Silva", "start":"2018-08-20T12:00:00+00:00","end":"2018-08-20T12:30:00+00:00","status":"Presente", "color":"#fbd75b","user_id":6, "room":"Sala 4A"},
+{"id":15,"title":"Oftamologia","name":"Miguel Martim Filipe Viegas", "start":"2018-08-20T13:00:00+00:00","end":"2018-08-20T13:30:00+00:00","status":"Faltou", "color":"#dc2127","user_id":6, "room":"Sala 4A"},
+{"id":16,"title":"Oftamologia","name":"Manuel José António Mendes", "start":"2018-08-20T13:30:00+00:00","end":"2018-08-20T14:00:00+00:00","status":"Enviado SMS", "color":"#a4bdfc","user_id":8, "room":"Sala 4B"}
+
+]
