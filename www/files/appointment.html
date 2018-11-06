@@ -2,6 +2,10 @@
 tr{text-align:center}
 tbody tr td{padding:0px!important}
 .list-inline>li {display: inline-block}
+
+/*Allow going directly to day when clicked*/
+.fc-bg {display:block; position:relative;}
+.fc-unselectable{margin-top: 0px}
 </style>
 
 <div class="w3-center">
@@ -68,15 +72,17 @@ function menuAppointments(s){
 
 
 function initializeAppoiment(){
-/*
-we put all status of treatments in a json array see file in js/status.json
-A legend to the user, list of status to user to see colors and name
-*/
-    list = ""
-    for (g=0; g< statuses.length; g++)
-        list += '<li class="w3-padding-small"><i class="fa fa-circle" style="color:'+statuses[g].color+'"></i> '+statuses[g].name+'</li>'
-        /*add to object all trhe statuses*/
-    $('.list_status').html(list)
+	/*
+	we put all status of treatments in a json array see file in js/status.json
+	A legend to the user, list of status to user to see colors and name
+	*/
+	
+	//Uncomment to show status and colors bellow the calendar
+    //list = ""
+    //for (g=0; g< statuses.length; g++)
+        //list += '<li class="w3-padding-small"><i class="fa fa-circle" style="color:'+statuses[g].color+'"></i> '+statuses[g].name+'</li>'
+        /*add to object all the statuses*/
+    //$('.list_status').html(list)
 }
 
 $(function() {
@@ -108,6 +114,12 @@ $(function() {
             center: 'title',
             right: 'agendaDay,month'
         	},
+			
+		//Allow going directly to day when clicked
+		dayClick: function(date, event, view) {
+            day = moment(date._i).format('YYYY-MM-DD')
+            $('#calendar').fullCalendar('changeView', 'agendaDay',day)
+        },
 
         events: 'js/appointments.json', // check the file, the server response must be that way
         

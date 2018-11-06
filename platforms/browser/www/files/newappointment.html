@@ -37,11 +37,11 @@
                 <div>&nbsp;</div>
 
                 <label>Data *</label>
-                <input type="date" class="w3-input w3-border w3-round w3-white needed" name="data" onchange="onlyPresentAndFuture(this.value)">
+                <input type="date" class="w3-input w3-border w3-round w3-white needed" name="data" onchange="onlyPresentAndFuture(this.value)" >
                 <div>&nbsp;<span class="required data w3-text-red w3-hide">Obrigatório *</span></div>
                 
                 <div class="w3-col w3-left" style="width:49%">
-                    <label>Incio *</label>
+                    <label>Início *</label>
                     <input type="time" class="w3-input w3-border w3-round needed w3-white" name="inicio" onchange="setTimeSchedule()">
                     <div>&nbsp;<span class="required inicio w3-text-red w3-hide w3-right">Obrigatório *</span></div>
                 </div>
@@ -180,14 +180,15 @@
     })
 
 
-    //only today and forward alowed
+    //only today and forward allowed
     function onlyPresentAndFuture(dt){
         now = new Date()
         month = now.getMonth()+1 > 9 ? String(now.getMonth()+1) : '0'+(now.getMonth()+1)
         today = now.getFullYear()+'-'+month+'-'+now.getDate()
-        showToday = now.getDate()+'/'+month+'/'+now.getFullYear()
-        
-        if(dt < today){
+		day = now.getDate() > 9 ? String(now.getDate()) : '0'+(now.getDate())
+        showToday = now.getFullYear()+'-'+month+'-'+day
+		
+        if(dt < showToday){
             minAllowed = parseInt(hoursMinutesToSeconds(now.getHours()+':00'))+parseInt(minScheduler)
             $('#new-appointment-form input[name="data"]').val(today)
             $('#modal-info').show()

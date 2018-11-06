@@ -7,12 +7,12 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    
+
     <!--meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" /-->
-    
-    
+
+
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="css/w3.css"> 
+    <link rel="stylesheet" href="css/w3.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/fullcalendar.min.css">
     <link rel="stylesheet" href='css/fullcalendar.print.min.css'/>
@@ -26,7 +26,7 @@
 </style>
 
     <section class="w3-hide">
-<!-- 
+<!--
 LOGIN
 -->
         <div class="login_container w3-hide w3-large w3-light-grey mw100vh">
@@ -35,7 +35,7 @@ LOGIN
                 <p class="w3-small w3-center">Paciente</p>
             </div>
             <div class="w3-display-middle" style="width: 85%">
-                <form class="w3-padding-32" id="submit-form"> 
+                <form class="w3-padding-32" id="submit-form">
                     <label>Email *</label>
                     <input type="text" placeholder="Email *" class="w3-input w3-border w3-round" value="ruben.rocha@intouchbiz.com" name="email">
                     <label>Password *</label>
@@ -56,11 +56,11 @@ LOGIN
                 </form>
             </div>
         </div>
-<!-- 
+<!--
 END LOGIN
 -->
-<!-- 
-!PAGE CONTENT! 
+<!--
+!PAGE CONTENT!
 -->
         <div class="app_container w3-hide w3-white mw100vh">
             <nav class="w3-sidebar w3-animate-left w3-blue w3-xlarge" id="mySidebar" style="z-index:9999;top: 0px">
@@ -94,7 +94,7 @@ END LOGIN
                 </span>
                 <span class="w3-button w3-button-transparent w3-right w3-xxlarge" onclick='$("#mySide").show().addClass("w3-block")'>
                     <i style="padding: 9px 13px" class="fa fa-ellipsis-v"></i>
-                </span> 
+                </span>
             </div>
 
 <!--INCLUDE FILES FROM LOAD METHOD-->
@@ -238,7 +238,7 @@ END LOGIN
                 </span>
             </div>
             <form id="get-password">
-                <div class="w3-container w3-round w3-white">               
+                <div class="w3-container w3-round w3-white">
                     <div class="w3-row-padding">
                         <div class="w3-col s12 w3-large w3-margin-bottom w3-margin-top">
                             <label>Email *</label>
@@ -268,17 +268,17 @@ END LOGIN
                 </span>
             </div>
             <form id="set-password">
-                <div class="w3-container w3-round w3-white">               
+                <div class="w3-container w3-round w3-white">
                     <div class="w3-row">
 
                         <div class="w3-col s12 w3-large w3-margin-top">
                             <label>Password Atual*</label>
-                            <input type="password" placeholder="Password Atual *" id="pass-0" class="w3-input w3-border w3-round" name="password_old">    
+                            <input type="password" placeholder="Password Atual *" id="pass-0" class="w3-input w3-border w3-round" name="password_old">
                         </div>
 
                         <div class="w3-col s12 w3-large w3-margin-top">
                             <label>Nova Password *</label>
-                            <input type="password" placeholder="Nova Password *" id="pass-1" class="w3-input w3-border w3-round" name="password_new">    
+                            <input type="password" placeholder="Nova Password *" id="pass-1" class="w3-input w3-border w3-round" name="password_new">
                         </div>
                         <div class="w3-col s12 w3-large w3-margin-bottom w3-margin-top">
                             <label>Repetir Nova Password *</label>
@@ -314,7 +314,7 @@ END LOGIN
                 <form id="update-client-appointment">
                     <input type="hidden" class="appointment_id" name="appointment_id">
                     <input type="hidden" class="set_date" name="data">
-                    <div class="w3-white">         
+                    <div class="w3-white">
                         <div class="w3-row-padding">
                             <div class="w3-col s12 w3-large w3-margin-bottom">
                                 <span class="w3-col s6 w3-text-red w3-large set_date w3-padding"></span>
@@ -373,15 +373,17 @@ END LOGIN
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
-        app.initialize()
+
+    app.initialize()
+
 
 //ads = '0'
 //session = '1'
 
     url="https://doctusware.pt/app/api/test.php";
 
-    setTimeout(function(){ 
-        $('section').removeClass('w3-hide').addClass('w3-animate-opacity') 
+    setTimeout(function(){
+        $('section').removeClass('w3-hide').addClass('w3-animate-opacity')
     }, 1500)
 
     localStorage.setItem('ads',1)
@@ -392,8 +394,8 @@ $('#submit-form').on('submit',function(e){
     e.preventDefault()
     $('.w3-overlay').show()
     setTimeout(function(){
-    $.ajax({  
-        url: url,      
+    $.ajax({
+        url: url,
         type: "GET",
         data:$('#submit-form').serialize()+'&action=login',
         dataType: 'json',
@@ -410,7 +412,7 @@ $('#submit-form').on('submit',function(e){
                 schedule = '00:30:00';
 
                 setScheduler = schedule.split(":")
-    
+
                 localStorage.setItem('user_schedule', hoursMinutesToSeconds(setScheduler[0]+':'+setScheduler[1]))
                 $('.app_container').removeClass('w3-hide')
 
@@ -466,8 +468,8 @@ $('#get-password').on('submit',function(e){
     $('.w3-overlay').show()
     console.log($('#get-password').serialize())
     setTimeout(function(){
-    $.ajax({  
-        url: url,      
+    $.ajax({
+        url: url,
         type: "GET",
         data:$('#get-password').serialize()+'&action=pass_recovery',
         dataType: 'json',
@@ -521,11 +523,11 @@ arr = {
 function adsDisplay(ads,arr){
     switch(ads){
         case '0':
-            $('#big-pub, #small-pub').removeClass('w3-hide') 
-            setTimeout(function(){ 
-                $('#small-pub').show() 
+            $('#big-pub, #small-pub').removeClass('w3-hide')
+            setTimeout(function(){
+                $('#small-pub').show()
             }, 6000)
-            setTimeout(function(){ 
+            setTimeout(function(){
                 $('#small-pub').hide()
                 $('#big-pub').show()
             }, 15000)
@@ -539,19 +541,22 @@ function adsDisplay(ads,arr){
             $('#big-pub-img').css('background-image','url('+arr.big.image+')')
         break
         case '1':
-            $('#big-pub, #small-pub').addClass('w3-hide') 
+            $('#big-pub, #small-pub').addClass('w3-hide')
         break
     }
 }
 
-function templateLoader(template){
+function templateLoader(template, option){
+    if (option != 1) {
+        pos.push(template)
+    }
     $('#modal-client-appointment').hide()
-    if(template == 'clientlist') 
+    if(template == 'clientlist')
        $('#middle-function').html('<span style="margin-top: -16px" onclick="toogleClientList()" class="w3-button w3-text-gray w3-button-transparent w3-xxlarge"><i style="padding: 9px 13px" class="fa fa-search"></i></span>')
 
     else
         $('#middle-function').html('<img class="w3-image logo-img" src="img/logo.png">')
-     
+
     $.ajax({url: "files/"+template+".html"}).done(function( html ) {$('#ajax_container').html(html)})
     $("#mySidebar").hide()
 }
@@ -603,19 +608,19 @@ function hoursMinutesToSeconds(hm) {
                     err.push($( this ).attr( "name" ))
                 }
             })
-    
+
             /*required fields*/
-            
+
             if (err.length > 0)
                 $('.w3-overlay').hide()
             /* dont allow start date smaller than end with the minAllowed (depends from each user) */
             else {
-    
+
                 if(hoursMinutesToSeconds($('#update-client-appointment .starts_at').val()) + minAllowed > parseInt(hoursMinutesToSeconds($('#update-client-appointment .ends_at').val()))){
                     $('.w3-overlay').hide()
                     $('#modal-text-info').html('A hora inserida não é válida.<br>Os intervalos, entre Inicio e Fim, são de '+secondsToHoursMinutes(minAllowed))
                     $('#modal-info').show()
-                
+
                 }
 
                 else
@@ -624,18 +629,18 @@ function hoursMinutesToSeconds(hm) {
 
             if (hours == true){
                 console.log('data to server on update appointment -->' + $('#update-client-appointment').serialize())
-                $.ajax({  
-                    url: url,      
+                $.ajax({
+                    url: url,
                     type: "GET",
                     data:'action=add_patient&patient_id='+$("#set-patient-id").val()+'&clinic_id='+localStorage.getItem('clinic_id')+'&'+$('#update-client-appointment').serialize(),
                     cache: false,
                     //dataType: 'json',
                     success: function(data){
                         $('.w3-overlay').hide()
-                        console.log('sucess on update appointment')    
+                        console.log('sucess on update appointment')
                     },
                     error:function(data){
-                        console.log('err -->'+data) 
+                        console.log('err -->'+data)
                         $('.w3-overlay').hide()
                         $('#modal-error').show()
                     }
@@ -645,17 +650,17 @@ function hoursMinutesToSeconds(hm) {
     })
 
 
-function cameraTakePicture() { 
+function cameraTakePicture() {
 
 /*only goto ppicture if edit is enabled*/
   if($('.edit-profile').hasClass('w3-hide'))
-    navigator.camera.getPicture(onSuccessImage, onFailImage, {  
-      quality: 50, 
-      destinationType: Camera.DestinationType.DATA_URL 
-    });  
-  
-  function onSuccessImage(imageData) { 
-      
+    navigator.camera.getPicture(onSuccessImage, onFailImage, {
+      quality: 50,
+      destinationType: Camera.DestinationType.DATA_URL
+    });
+
+  function onSuccessImage(imageData) {
+
       //alert(imageData)
       $('.set-image-user').html('<img class="w3-image" id="profile-image" onerror="this.src=\'/images/no-user.jpg\'" style="width:100%;min-height: 75px">')
       var output = document.getElementById('profile-image')
@@ -663,13 +668,13 @@ function cameraTakePicture() {
       $('#set-profile-image-64').val(imageData)
       //output.src = URL.createObjectURL(imageData.target.files[0])
       //alert(imageData.target.files[0])
-      //var image = document.getElementById('myImage'); 
-      //image.src = "data:image/jpeg;base64," + imageData; 
-  }  
-   
-  function onFailImage(message) { 
-      //alert('Failed because: ' + message); 
-  } 
+      //var image = document.getElementById('myImage');
+      //image.src = "data:image/jpeg;base64," + imageData;
+  }
+
+  function onFailImage(message) {
+      //alert('Failed because: ' + message);
+  }
 }
 
 
@@ -679,8 +684,8 @@ function cameraTakePicture() {
 function user(user_idm, clinic_id){
     $('.w3-overlay').show()
         setTimeout(function(){
-        $.ajax({  
-            url: url,      
+        $.ajax({
+            url: url,
             type: "GET",
             data:'clinic_id='+id+'&action=clinic_db',
             dataType: 'json',

@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var pos = [];
 var app = {
     // Application Constructor
     initialize: function() {
@@ -39,11 +40,16 @@ var app = {
     onBackKeyDown: function() {
         $('#pass-0, #pass-1, #pass-2').val('')
         $('.menu-overlay, .w3-overlay').hide()
-        if($('#ajax_container').html()) {
+/*        if($('#ajax_container').html()) {
             $('#ajax_container').empty()
-            seeClinics()
+        }*/
+        if (pos.length == '1') {
+            navigator.app.exitApp();
         }
-        else navigator.app.exitApp()
+        else {
+            pos.pop();
+            templateLoader(pos.slice(-1)[0], 1);
+        }
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
